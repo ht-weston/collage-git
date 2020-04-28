@@ -5,3 +5,4 @@ tmp/
 package-lock.json
 _archive/
 tracker.json
+src/imgs/*
