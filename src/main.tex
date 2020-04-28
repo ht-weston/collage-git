@@ -1,39 +1,75 @@
-\documentclass[12pt,letter]{article}
+\documentclass{article}
+\usepackage[letterpaper]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
 \usepackage{graphicx}
+\usepackage{fancyhdr}
+\geometry{%
+    letterpaper,
+    total={7.5in,9.5in},
+    top=1in,
+    bottom=1in,
+}
 
 \newcommand{\subf}[2]{%
   {\small\begin{tabular}[t]{@{}c@{}}
-  #1\\#2
-  \end{tabular}}%
+   \mbox{}\\[-\ht\strutbox]
+   #1\\#2
+   \end{tabular}}%
 }
+\pagestyle{fancy}
+\lhead{\LARGE{\textbf{Green Alleys Master Plan}}}
+\lfoot{\includegraphics[width=1in]{./branding/weston_big.png}}
 
 
 \begin{document}
 \begin{figure}
 \centering
-\begin{tabular}{c c c}
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+\begin{tabular}{c c}
+\subf{\includegraphics[width=3.1in]{./imgs/20200427_084214.jpg}}
      {``iteraciones máximas \\ de BT''$=20$}
 &
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
-     {``iteraciones máximas \\ de BT''$=20$}
-&
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
-     {``iteraciones máximas \\ de BT''$=20$}
-\\
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
-     {``iteraciones máximas \\ de BT''$=20$}
-&
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
-     {``iteraciones máximas \\ de BT''$=20$}
-&
-\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
      {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
 \\
-\hline
+\subf{\includegraphics[width=3.1in]{./imgs/20200427_084214.jpg}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+&
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
+\end{tabular}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\centering
+\begin{tabular}{c c}
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+&
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=3.1in]{example-image-a.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
 \end{tabular}
 \end{figure}
 \end{document}
