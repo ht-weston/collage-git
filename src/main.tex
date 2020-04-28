@@ -1,27 +1,8 @@
-%
-% <%= projectName %>
-% <%= projectUrl %>
-% Licensed under <%= license %> License
-%
-
-% Page creation engine
-\documentclass[11pt,a4paper]{report}
-\usepackage[utf8]{inputenc}
+\documentclass[12pt,letter]{article}
 \usepackage[T1]{fontenc}
-
-% Meta-data
-\date{today}
-
-% Main modules
-\usepackage{url}      % URL
-\usepackage{hyperref} % Links
-\usepackage{graphicx} % Pictures
-\usepackage{wrapfig}  % In-line Pictures
-\usepackage{verbatim} % Code
-\usepackage{moreverb} % Encoding
-\usepackage{listings} % Code
-\usepackage{color}    % Highlight
-\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
 
 \newcommand{\subf}[2]{%
   {\small\begin{tabular}[t]{@{}c@{}}
@@ -29,12 +10,30 @@
   \end{tabular}}%
 }
 
+
 \begin{document}
+\begin{figure}
 \centering
 \begin{tabular}{c c c}
-\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
-\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
-\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+\\
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``iteraciones máximas \\ de BT''$=20$}
+&
+\subf{\includegraphics[width=2in]{example-image-4x3.pdf}}
+     {``Periodo de Tenencia \\ en Lista Tabú''$=2$}
+\\
+\hline
 \end{tabular}
-
+\end{figure}
 \end{document}
