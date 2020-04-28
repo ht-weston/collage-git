@@ -1,0 +1,7 @@
+tex_out/
+node_modules/
+dist/
+tmp/
+package-lock.json
+_archive/
+tracker.json

@@ -1,0 +1,40 @@
+%
+% <%= projectName %>
+% <%= projectUrl %>
+% Licensed under <%= license %> License
+%
+
+% Page creation engine
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Meta-data
+\date{today}
+
+% Main modules
+\usepackage{url}      % URL
+\usepackage{hyperref} % Links
+\usepackage{graphicx} % Pictures
+\usepackage{wrapfig}  % In-line Pictures
+\usepackage{verbatim} % Code
+\usepackage{moreverb} % Encoding
+\usepackage{listings} % Code
+\usepackage{color}    % Highlight
+\usepackage{tabularx}
+
+\newcommand{\subf}[2]{%
+  {\small\begin{tabular}[t]{@{}c@{}}
+  #1\\#2
+  \end{tabular}}%
+}
+
+\begin{document}
+\centering
+\begin{tabular}{c c c}
+\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
+\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
+\subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} & \subf{\includegraphics[width=2in]{example-image-a}} \\
+\end{tabular}
+
+\end{document}

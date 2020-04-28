@@ -1,0 +1,26 @@
+{
+  "name": "Resume",
+  "version": "1.0.0",
+  "description": "My resume",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/home/hans/documents/ten/assets/standards/proposal"
+  },
+  "author": "Hans T.",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-latex": "^1.0.1",
+    "gulp-pdflatex2": "^4.0.3",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-run": "^1.7.1",
+    "gulp-zip": "^4.2.0",
+    "moment": "^2.24.0"
+  }
+}
