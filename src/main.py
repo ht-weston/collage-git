@@ -2,39 +2,44 @@
 
 import os
 import re
+import glob
+
 d='./imgs'
 cnt=1
 row=1
 rows=3
 cols=2
-lim=len([n for n in os.listdir(d) if n.endswith('*.jpg')])
+lim=len(glob.glob1(d,"*.jpg"))
 print(lim)
 latex="""
 \\begin{figure}
 \\centering
-\t\\begin{tabular}{c c}
+\\begin{tabular}{c c}
 """
 for f in os.listdir(d):
     if not(f.endswith(".jpg")):
         continue
 
-    latex+="\t\t\subf{\includegraphics[width=3.1in]{%s}\n\t\t{Figure %s: site_location \\\\ description}\n"%(d+f,cnt)
-    latex+="\t\t&\n"
+    latex+="\subf{\includegraphics[width=3.1in]{%s}\n{Figure %s: site_location \\\\ description}\n"%(d+f,cnt)
+    latex+="&\n"
     cnt+=1
 
     if cnt % cols:
-        latex+="\t\t\\\\\n"
+        latex+="\\\\\n"
         row+=1
 
     if row > rows:
-        latex+="""\t\end{tabular}\n\end{figure}"""
+        # This is a new page
+        latex+="""\end{tabular}\n\end{figure}"""
+        latex+="""\n\n\\nextpage\n\n"""
         row=1
 
-    if cnt < lim:
-        latex+="""\n\n\\nextpage\n\n\\begin{figure}\n\centering\n\t\\begin{tabular}{c c}\n"""
+        if cnt < lim:
+            latex+="""\\begin{figure}\n\centering\n\\begin{tabular}{c c}\n"""
 
-    if cnt > 10:
-        break
+        if cnt > lim:
+            latex+="\\\\\n"
+            latex+="""\end{tabular}\n\end{figure}"""
 
 latex+="""
 \end{tabular}
