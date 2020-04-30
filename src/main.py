@@ -4,13 +4,12 @@ import os
 import re
 import glob
 
-d='./imgs'
+d='./imgs/'
 cnt=1
 row=1
 rows=3
 cols=2
 lim=len(glob.glob1(d,"*.jpg"))
-print(lim)
 latex="""
 \\begin{figure}
 \\centering
@@ -20,7 +19,7 @@ for f in os.listdir(d):
     if not(f.endswith(".jpg")):
         continue
 
-    latex+="\subf{\includegraphics[width=3.1in]{%s}\n{Figure %s: site_location \\\\ description}\n"%(d+f,cnt)
+    latex+="\subf{\includegraphics[width=3.1in]{%s}}\n{Figure %s: site_location \\\\ description}\n"%(d+f,cnt)
     latex+="&\n"
     cnt+=1
 
@@ -31,7 +30,7 @@ for f in os.listdir(d):
     if row > rows:
         # This is a new page
         latex+="""\end{tabular}\n\end{figure}"""
-        latex+="""\n\n\\nextpage\n\n"""
+        latex+="""\n\n\\newpage\n\n"""
         row=1
 
         if cnt < lim:
@@ -41,6 +40,8 @@ for f in os.listdir(d):
             latex+="\\\\\n"
             latex+="""\end{tabular}\n\end{figure}"""
 
+    if cnt > 20:
+        break
 latex+="""
 \end{tabular}
 \end{figure}
