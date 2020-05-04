@@ -14,8 +14,16 @@ gulp.task('clean',() => {
     return del('./dist/draft');
 });
 
+gulp.task('images', function(cb){
+    exec('cd ./src; ./main.py > ./imgs.tex; cd ../', function(err,stdout,stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+})
+
 gulp.task('compile', function(cb) {
-    exec('latexmk -outdir=../dist/draft -pdf -cd src/*.tex', function(err,stdout,stderr) {
+    exec('latexmk -outdir=../dist/draft -pdf -quiet -cd src/main.tex', function(err,stdout,stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -52,7 +60,7 @@ gulp.task('view',function () {
 
 gulp.task('watch', gulp.series('default', 'view', function () {
     // Open a gulp watcher, okular, and type away to view changes.
-    gulp.watch(['./src/**/*'],gulp.series('default'));
+    gulp.watch(['./src/main.tex,./src/main.py'],gulp.series('default'));
 
 }));
 
