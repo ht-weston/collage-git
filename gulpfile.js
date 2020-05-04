@@ -60,7 +60,7 @@ gulp.task('view',function () {
 
 gulp.task('watch', gulp.series('default', 'view', function () {
     // Open a gulp watcher, okular, and type away to view changes.
-    gulp.watch(['./src/main.tex,./src/main.py'],gulp.series('default'));
+    gulp.watch(['./src/*.tex'],gulp.series('default'));
 
 }));
 

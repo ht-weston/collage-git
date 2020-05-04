@@ -19,13 +19,14 @@ for f in os.listdir(d):
     if not(f.endswith(".jpg")):
         continue
 
-    latex+="\subf{\includegraphics[height=2in,width=3.1in,keepaspectratio]{%s}}\n{\\textbf{Figure %s:} site-test \\\\ description}\n"%(d+f,cnt)
-    latex+="&\n"
+    latex+="\subf{\includegraphics[height=2.5in,width=3.1in,keepaspectratio]{%s}}\n{\\textbf{Figure %s:} site-test \\\\ description}\n"%(d+f,cnt)
     cnt+=1
 
     if cnt % cols:
         latex+="\\\\\n"
         row+=1
+    else:
+        latex+="&\n"
 
     if row > rows:
         # This is a new page
@@ -39,11 +40,4 @@ for f in os.listdir(d):
         if cnt > lim:
             latex+="\\\\\n"
             latex+="""\end{tabular}\n\end{figure}"""
-
-    if cnt > 20:
-        break
-latex+="""
-\end{tabular}
-\end{figure}
-"""
 print(latex)
