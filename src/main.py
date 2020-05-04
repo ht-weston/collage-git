@@ -19,7 +19,7 @@ for f in os.listdir(d):
     if not(f.endswith(".jpg")):
         continue
 
-    latex+="\subf{\includegraphics[width=3.1in]{%s}}\n{Figure %s: site_location \\\\ description}\n"%(d+f,cnt)
+    latex+="\subf{\includegraphics[height=2in,width=3.1in]{%s}}\n{\\textbf{Figure %s}: site_location \\\\ description}\n"%(d+f,cnt)
     latex+="&\n"
     cnt+=1
 
@@ -40,8 +40,6 @@ for f in os.listdir(d):
             latex+="\\\\\n"
             latex+="""\end{tabular}\n\end{figure}"""
 
-    if cnt > 20:
-        break
 latex+="""
 \end{tabular}
 \end{figure}
