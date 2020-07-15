@@ -27,7 +27,7 @@
 \newsavebox{\mypicbox}
 \newcounter{anImageCounter}
 
-
+% TODO: Create some documentation here to remind me how to use the file.  This is great.
 %Definition of the command \anImage
 % #1: Like \aTable #1 optional argument is the label of the table
 % If no label is given you may \ref on it by using the label:
@@ -40,6 +40,8 @@
 %                          (m for minipage with an image inside and possible caption -NON floating but just added where the code is... Carefull usega because it may leave empty space in the previous page if doesn't fit in its height-
 %                          (f floating figure [!htb] option)
 % #6 the file name
+
+%TODO: Place all of this in a package (collage).
 \newcommand\anImage[6][]{\null\ignorespaces%
   \def\ArgA{#1}%
   \ifx\ArgA\empty%
@@ -222,6 +224,7 @@
 \begin{document}
 
 \input{./imgs.tex}
+\anImage{test}{Good caption.}{3in}{3in}{l}{./20200427_084303.jpg} % TODO: This isn't working for me.
 
-Figure \ref{Image10}
+Figure \ref{1}
 \end{document}
