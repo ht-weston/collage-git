@@ -6,38 +6,42 @@ import glob
 
 d='./imgs/'
 cnt=1
-row=1
+col=1
+row=0
 rows=3
 cols=2
+AddedEnd=0
 lim=len(glob.glob1(d,"*.jpg"))
+figlist="{"
+captlist="{"
+labellist="["
 latex="""
-\\begin{figure}
-\\centering
-\\begin{tabular}{c c}
+\\begin{minipage}{\\linewidth}
+\\begin{InsertImages}
 """
 for f in os.listdir(d):
     if not(f.endswith(".jpg")):
         continue
-
-    latex+="\subf{\includegraphics[height=2.5in,width=3.1in,keepaspectratio]{%s}}\n{\\textbf{Figure %s:} site-test \\\\ description}\n"%(d+f,cnt)
-    cnt+=1
-
-    if cnt % cols:
-        latex+="\\\\\n"
-        row+=1
+    if ((cnt)%(cols)):
+       figlist+="%s,"%(d+f)
+       captlist+="Figure %s,"%cnt
+       labellist+="Fig:%s,"%cnt
     else:
-        latex+="&\n"
-
-    if row > rows:
-        # This is a new page
-        latex+="""\end{tabular}\n\end{figure}"""
-        latex+="""\n\n\\newpage\n\n"""
-        row=1
-
-        if cnt < lim:
-            latex+="""\\begin{figure}\n\centering\n\\begin{tabular}{c c}\n"""
-
-        if cnt > lim:
-            latex+="\\\\\n"
-            latex+="""\end{tabular}\n\end{figure}"""
+        row+=1
+        latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\nRow=%s\n"%(figlist,(d+f),row)
+        figlist="{"
+        latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
+        if (rows==row):
+          latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+          AddedEnd=1
+          row=0
+          if cnt < lim:
+            latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
+        else:
+            AddedEnd=0
+        labellist="["
+        captlist="{"
+    cnt+=1
+if ((AddedEnd==0) & (col>=lim)):
+      latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
 print(latex)
