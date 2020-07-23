@@ -63,7 +63,6 @@ class img():
                         if key in exif[idx]:
                             geotgs[val] = exif[idx][key] # Get Geotags.
 
-            print(path)
             coord = img._get_coordinates(geotgs)
             self._path = path
             self._gpsLati = coord[0]
@@ -75,7 +74,6 @@ class img():
 
     def _get_decimal_from_dms(dms, ref):
 
-        print(dms)
         try:
             degrees = dms[0][0] / dms[0][1]
             minutes = dms[1][0] / dms[1][1] / 60.0
