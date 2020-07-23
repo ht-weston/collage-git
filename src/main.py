@@ -3,8 +3,59 @@
 import os
 import re
 import glob
+import exifread
 
-d='./imgs/'
+class img():
+    @property
+    def gpsLati (self):
+        return cls._to_decimal(self._gpsLati)
+
+    @property
+    def gpsLong(self):
+        return cls._to_decimal_to_decimal(self._gpsLong)
+
+    @property
+    def desc(self):
+        return self._desc
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def path(self):
+         self._path
+
+    @property
+    def ctime(self):
+        tmp = self._ctime
+        # datetime.
+        return self._ctime
+
+    @property
+    def direc(self):
+        return self._direc
+
+    @property
+    def caption(self):
+        return self._caption
+
+    def __init__(self,p):
+        try:
+            with open(p,'rb') as f :
+                tags = exifread.process_file(f)
+
+            self._gpsLong=tags['GPS GPSLongitude']
+            self._gpsLati=tags["GPS GPSLatitude"]
+            self._ctime= tags["Image DateTime"]
+            self._direc=tags["GPS GPSImgDirection"]
+        except Exception as e:
+            print(p + " is not a valid image.")
+
+    def _to_decimal(hms):
+        return hms[0] + hms[1]/60 + hms[2]/3600
+
+d='./src/imgs/'
 cnt=1
 col=1
 row=0
@@ -19,7 +70,11 @@ latex="""
 \\begin{minipage}{\\linewidth}
 \\begin{InsertImages}
 """
-for f in os.listdir(d):
+files = os.listdir(d)
+imgs = [ img(f) for f in files ]
+# imgs = sorted(files,key = lambda f: )
+
+for f in files:
     if not(f.endswith(".jpg")):
         continue
     if ((cnt)%(cols)):
@@ -28,7 +83,7 @@ for f in os.listdir(d):
        labellist+="Fig:%s,"%cnt
     else:
         row+=1
-        latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\nRow=%s\n"%(figlist,(d+f),row)
+        latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,(d+f))
         figlist="{"
         latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
         if (rows==row):
@@ -45,3 +100,4 @@ for f in os.listdir(d):
 if ((AddedEnd==0) & (col>=lim)):
       latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
 print(latex)
+
