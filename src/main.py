@@ -2,6 +2,7 @@
 
 import os
 from PIL import Image
+from PIL.ExifTags import TAGS, GPSTAGS
 import glob
 import exifread
 
@@ -42,21 +43,49 @@ class img():
 
     def __init__(self,p):
         try:
-            with open(p,'rb') as f :
-                tags = exifread.process_file(f)
+            pic = Image.open(p)
+            pic.verify()
+            exif = pic._getexif()
+            labels = {}
+            geotgs = {}
+            for (key,val) in exif.items():
+                labels[TAGS.get(key)] = val
 
-            self._gpsLong=tags['GPS GPSLongitude']
-            self._gpsLati=tags["GPS GPSLatitude"]
-            self._ctime= tags["Image DateTime"]
-            self._direc=tags["GPS GPSImgDirection"]
+            for (idx, tag) in TAGS.items():
+                if tag == 'GPSInfo':
+                    if idx not in exif:
+                        raise ValueError("No EXIF geotagging found")
+
+                    for (key, val) in GPSTAGS.items():
+                        if key in exif[idx]:
+                            geotgs[val] = exif[idx][key] # Get Geotags.
+
+            coord = img._get_coordinates(geotgs)
+            # self._gpsLati = coord[0]
+            # self._gpsLong = coord[1]
         except Exception as e:
-            print(p + " is not a valid image.")
+            raise e
 
-    def _to_decimal(hms):
-        hms = str(hms)
-        return hms
 
-        # return hms[0] + hms[1]/60 + hms[2]/3600
+    def _get_decimal_from_dms(dms, ref):
+
+        degrees = dms[0][0] / dms[0][1]
+        minutes = dms[1][0] / dms[1][1] / 60.0
+        seconds = dms[2][0] / dms[2][1] / 3600.0
+
+        if ref in ['S', 'W']:
+            degrees = -degrees
+            minutes = -minutes
+            seconds = -seconds
+
+        return round(degrees + minutes + seconds, 5)
+
+    def _get_coordinates(geotags):
+        lat = img._get_decimal_from_dms(geotags['GPSLatitude'], geotags['GPSLatitudeRef'])
+
+        lon = img._get_decimal_from_dms(geotags['GPSLongitude'], geotags['GPSLongitudeRef'])
+
+        return (lat,lon)
 
 
 # d='./src/imgs/'
