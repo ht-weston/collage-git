@@ -19,6 +19,7 @@ class TestMain(unittest.TestCase):
         self.imgs = [img(d + f) for f in files]
 
     def test_img(self):
-        print(self.imgs)
+        s = self.imgs[0].gpsLong
+        print(s)
         assert(False)
 
