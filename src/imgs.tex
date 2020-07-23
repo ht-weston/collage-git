@@ -1,14 +1,37 @@
+% Ideally this is how I would like to use this.
+% The macro would space the images and size appropriately.
+% First optional task would set the columns and second would add rows.
+%\begin{imagesbox}[2][3][height=3.1in, width=2.2in][This is a comment that applies to all of these images.]
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%\end{imagesbox}
+% \newpage This may be in the environment if you think it's more appropriate.
+
+%\begin{imagesbox}[2][3][height=3.1in, width=2.2in][This is a comment that applies to all of these images.]
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%    \animage{./path/to/image.jpg}{caption here.}
+%\end{imagesbox}
+
+% Creates a group
+
+
 \section*{Site 1: Alley North of W Slauson Ave between S. Mullen Ave and Keniston Ave}
 \begin{minipage}{\linewidth}
 \begin{InsertImages}
 \InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}{./imgs/Green Alleys-2020-07-17-11-31-36.jpg,./imgs/image-2020-07-17-11-53-08.jpg}
-\InsertCaptions[Fig:53,Fig:54]{Figure 53,Figure 54}{t}{figure}
+\InsertCaptions[Fig:53,Fig:54]{Overhead lines,}{t}{figure}
 \InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}{./imgs/Green Alleys-2020-07-17-11-53-56.jpg,./imgs/Green Alleys-2020-07-17-11-54-03.jpg}
-\InsertCaptions[Fig:55,Fig:56]{Figure 55,Figure 56}{t}{figure}
-\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}{./imgs/Green Alleys-2020-07-17-11-54-21.jpg,./imgs/Green Alleys-2020-07-17-11-56-36.jpg}
-\InsertCaptions[Fig:57,Fig:58]{Figure 57,Figure 58}{t}{figure}
-\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}{./imgs/Green Alleys-2020-07-17-11-56-46.jpg,./imgs/Green Alleys-2020-07-17-11-56-58.jpg}
-\InsertCaptions[Fig:59,Fig:60]{Figure 59,Figure 60}{t}{figure}
+\InsertCaptions[Fig:55,Fig:56]{,}{t}{figure}
+\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}{./imgs/Green Alleys-2020-07-17-11-56-46.jpg,./imgs/Green Alleys-2020-07-17-11-56-36.jpg}
+\InsertCaptions[Fig:59,Fig:58]{Figure 57,Figure 58}{t}{figure}
 \end{InsertImages}
 \end{minipage}
 
