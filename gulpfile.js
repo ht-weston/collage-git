@@ -30,7 +30,7 @@ gulp.task('compile', function(cb) {
     });
 })
 
-gulp.task('default', gulp.series('images','compile'));
+gulp.task('default', gulp.series('compile'));
 
 gulp.task('archive', gulp.series('default',function () {
     // single instance compile and open Okular.

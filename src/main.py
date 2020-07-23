@@ -151,7 +151,7 @@ def to_latex(dirpath):
             row+=1
             latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
             figlist="{"
-            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%("",cnt,"","")
+            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
             # test
             if (rows==row):
               latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
