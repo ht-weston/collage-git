@@ -129,8 +129,7 @@ def to_latex(dirpath):
     figlist="{"
     captlist="{"
     labellist="["
-    latex="""
-    \\begin{minipage}{\\linewidth}
+    latex="""\\begin{minipage}{\\linewidth}
     \\begin{InsertImages}
     """
     files = os.listdir(dirpath)
@@ -152,7 +151,8 @@ def to_latex(dirpath):
             row+=1
             latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
             figlist="{"
-            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
+            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%("",cnt,"","")
+            # test
             if (rows==row):
               latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
               AddedEnd=1
@@ -171,4 +171,3 @@ def to_latex(dirpath):
 if __name__ == "__main__":
     st = to_latex(sys.argv[1])
     print(st)
-

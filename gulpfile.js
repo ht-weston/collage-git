@@ -15,7 +15,7 @@ gulp.task('clean',() => {
 });
 
 gulp.task('images', function(cb){
-    exec('cd ./src; ./main.py > ./imgs.tex; cd ../', function(err,stdout,stderr) {
+    exec('cd ./src && ./main.py ./imgs/ > ./imgs.tex; cd ../', function(err,stdout,stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -23,14 +23,14 @@ gulp.task('images', function(cb){
 })
 
 gulp.task('compile', function(cb) {
-    exec('latexmk -outdir=../dist/draft -pdf -quiet -cd src/main.tex', function(err,stdout,stderr) {
+    exec('latexmk -outdir=../dist/draft -pdf -cd src/main.tex', function(err,stdout,stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
     });
 })
 
-gulp.task('default', gulp.series('compile'));
+gulp.task('default', gulp.series('images','compile'));
 
 gulp.task('archive', gulp.series('default',function () {
     // single instance compile and open Okular.
@@ -59,8 +59,6 @@ gulp.task('view',function () {
 });
 
 gulp.task('watch', gulp.series('default', 'view', function () {
-    // Open a gulp watcher, okular, and type away to view changes.
-    gulp.watch(['./src/*.tex'],gulp.series('default'));
-
+    gulp.watch(['./src/main.tex','./src/imgs/*','./src/main.py'],gulp.series('default'));
 }));
 
