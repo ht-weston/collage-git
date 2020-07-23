@@ -4,7 +4,7 @@ import os
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 import glob
-import exifread
+import sys
 
 class img():
     @property
@@ -25,12 +25,10 @@ class img():
 
     @property
     def path(self):
-         self._path
+        return self._path
 
     @property
     def ctime(self):
-        tmp = self._ctime
-        # datetime.
         return self._ctime
 
     @property
@@ -41,10 +39,15 @@ class img():
     def caption(self):
         return self._caption
 
-    def __init__(self,p):
+    @property
+    def is_valid(self):
+        return self._is_valid
+
+    def __init__(self,path):
         try:
-            pic = Image.open(p)
+            pic = Image.open(path)
             pic.verify()
+            self._is_valid = True
             exif = pic._getexif()
             labels = {}
             geotgs = {}
@@ -61,10 +64,15 @@ class img():
                             geotgs[val] = exif[idx][key] # Get Geotags.
 
             coord = img._get_coordinates(geotgs)
+            self._path = path
             self._gpsLati = coord[0]
             self._gpsLong = coord[1]
+            self._ctime = labels['DateTime']
+            self._desc = labels["UserComment"]
         except Exception as e:
-            print (p + " is not valid.")
+            print(e)
+            self._is_valid = False
+
 
 
     def _get_decimal_from_dms(dms, ref):
@@ -87,50 +95,80 @@ class img():
 
         return (lat,lon)
 
+    def __eq__(self, other):
+        return (self.ctime == other.ctime)
 
-# d='./src/imgs/'
-# cnt=1
-# col=1
-# row=0
-# rows=3
-# cols=2
-# AddedEnd=0
-# lim=len(glob.glob1(d,"*.jpg"))
-# figlist="{"
-# captlist="{"
-# labellist="["
-# latex="""
-# \\begin{minipage}{\\linewidth}
-# \\begin{InsertImages}
-# """
-# files = os.listdir(d)
-# imgs = [ img(f) for f in files ]
-# # imgs = sorted(files,key = lambda f: )
+    def __ne__(self, other):
+        return (self.ctime != other.ctime)
 
-# for f in files:
-    # if not(f.endswith(".jpg")):
-        # continue
-    # if ((cnt)%(cols)):
-       # figlist+="%s,"%(d+f)
-       # captlist+="Figure %s,"%cnt
-       # labellist+="Fig:%s,"%cnt
-    # else:
-        # row+=1
-        # latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,(d+f))
-        # figlist="{"
-        # latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
-        # if (rows==row):
-          # latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
-          # AddedEnd=1
-          # row=0
-          # if cnt < lim:
-            # latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
-        # else:
-            # AddedEnd=0
-        # labellist="["
-        # captlist="{"
-    # cnt+=1
-# if ((AddedEnd==0) & (col>=lim)):
-      # latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
-# print(latex)
+    def __lt__(self, other):
+        return (self.ctime < other.ctime)
+
+    def __le__(self, other):
+        return (self.ctime <= other.ctime)
+
+    def __gt__(self, other):
+        return (self.ctime > other.ctime)
+
+    def __ge__(self, other):
+        return (self.ctime >= other.ctime)
+
+    def __repr__(self):
+        return "%s" % (self.ctime)
+
+def to_latex(dirpath):
+    cnt=1
+    col=1
+    row=0
+    rows=3
+    cols=2
+    AddedEnd=0
+    lim=len(glob.glob1(dirpath,"*.jpg"))
+    figlist="{"
+    captlist="{"
+    labellist="["
+    latex="""
+
+    \\begin{minipage}{\\linewidth}
+    \\begin{InsertImages}
+    """
+    files = os.listdir(dirpath)
+    imgs = []
+    for f in files:
+        print(dirpath + f)
+        i = img(dirpath + f)
+        if i.is_valid:
+            imgs.append(i)
+
+    imgs.sort(key=lambda x: x.ctime,reverse=True)
+    print(len(imgs))
+
+    for f in imgs:
+        if ((cnt)%(cols)):
+           figlist+="%s,"%f.path
+           captlist+="Figure %s,"%cnt
+           labellist+="Fig:%s,"%cnt
+        else:
+            row+=1
+            latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
+            figlist="{"
+            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
+            if (rows==row):
+              latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+              AddedEnd=1
+              row=0
+              if cnt < lim:
+                latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
+            else:
+                AddedEnd=0
+            labellist="["
+            captlist="{"
+        cnt+=1
+    if ((AddedEnd==0) & (col>=lim)):
+          latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+    return latex
+
+if __name__ == "__main__":
+    st = to_latex(sys.argv[1])
+    print(st)
 

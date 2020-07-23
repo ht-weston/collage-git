@@ -19,7 +19,12 @@ class TestMain(unittest.TestCase):
         self.imgs = [img(d + f) for f in files]
 
     def test_img(self):
-        s = self.imgs[0].gpsLong
-        print(s)
+        print(self.imgs[0].gpsLong)
+        print(self.imgs[1].path)
+        print(self.imgs[1].ctime)
+        assert(False)
+
+    def test_tolatex(self):
+        print(to_latex('./src/imgs/'))
         assert(False)
 
