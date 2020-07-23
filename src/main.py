@@ -63,6 +63,7 @@ class img():
                         if key in exif[idx]:
                             geotgs[val] = exif[idx][key] # Get Geotags.
 
+            print(path)
             coord = img._get_coordinates(geotgs)
             self._path = path
             self._gpsLati = coord[0]
@@ -70,16 +71,19 @@ class img():
             self._ctime = labels['DateTime']
             self._desc = labels["UserComment"]
         except Exception as e:
-            print(e)
-            self._is_valid = False
-
-
+            raise e
 
     def _get_decimal_from_dms(dms, ref):
 
-        degrees = dms[0]
-        minutes = dms[1] / 60.0
-        seconds = dms[2] / 3600.0
+        print(dms)
+        try:
+            degrees = dms[0][0] / dms[0][1]
+            minutes = dms[1][0] / dms[1][1] / 60.0
+            seconds = dms[2][0] / dms[2][1] / 3600.0
+        except:
+            degrees = dms[0]
+            minutes = dms[1] / 60.0
+            seconds = dms[2] / 3600.0
 
         if ref in ['S', 'W']:
             degrees = -degrees
@@ -128,20 +132,18 @@ def to_latex(dirpath):
     captlist="{"
     labellist="["
     latex="""
-
     \\begin{minipage}{\\linewidth}
     \\begin{InsertImages}
     """
     files = os.listdir(dirpath)
     imgs = []
     for f in files:
-        print(dirpath + f)
-        i = img(dirpath + f)
-        if i.is_valid:
-            imgs.append(i)
+        try:
+            imgs.append(img(dirpath + f))
+        except Exception as e:
+            continue
 
-    imgs.sort(key=lambda x: x.ctime,reverse=True)
-    print(len(imgs))
+    imgs.sort(key=lambda x: x.ctime,reverse=False)
 
     for f in imgs:
         if ((cnt)%(cols)):

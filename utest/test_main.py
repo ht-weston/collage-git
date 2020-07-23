@@ -16,7 +16,11 @@ class TestMain(unittest.TestCase):
     def setUp(self):
         d='./src/imgs/'
         files = os.listdir(d)
-        self.imgs = [img(d + f) for f in files]
+        for f in files:
+            try:
+                self.imgs.append(img(d + f))
+            except:
+                continue
 
     def test_img(self):
         print(self.imgs[0].gpsLong)
@@ -25,6 +29,6 @@ class TestMain(unittest.TestCase):
         assert(False)
 
     def test_tolatex(self):
-        print(to_latex('./src/imgs/'))
+        print(to_latex("./src/imgs/"))
         assert(False)
 
