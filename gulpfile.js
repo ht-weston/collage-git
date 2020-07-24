@@ -59,6 +59,6 @@ gulp.task('view',function () {
 });
 
 gulp.task('watch', gulp.series('default', 'view', function () {
-    gulp.watch(['./src/main.tex','./src/imgs/*','./src/main.py'],gulp.series('default'));
+    gulp.watch(['./src/*.tex','./src/imgs/*','./src/main.py'],gulp.series('default'));
 }));
 

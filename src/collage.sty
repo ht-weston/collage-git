@@ -7,7 +7,8 @@
 \RequirePackage{subcaption}
 \RequirePackage{picins}
 \RequirePackage{xstring}
-
+%\RequirePackage{alphalph}
+%\gdef\Alph#1{\AlphAlph{#1}}
 % this is found in latex.ltx:
 % \def\@car#1#2\@nil{#1}
 \def\iffirsttoken#1#2{%
@@ -139,7 +140,7 @@
 \NewEnviron{InsertImages}{%
   \setcounter{ImageCounter}{0}%
   \setcounter{RowImageCounter}{0}%
-\newcommand{\ReadArgument}[2]{%
+\def\ReadArgument##1##2{%
   \gdef\LabelImage{LabelImage}%
   \gdef\ArgRAA{##1}%
   \setcounter{testImgCounter}{0}%
@@ -149,6 +150,7 @@
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\Item}%
   \ifnum\value{testImgCounter}<\value{ImageCounter}
   \xdef\LastValue{\the\value{testImgCounter}}%
+  \ifcsname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname
   \xdef\LastItem{\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname}%
   \foreach \mi in {\LastValue,...,\the\value{ImageCounter}}
            { %
@@ -164,9 +166,12 @@
              \else
              \refstepcounter{testImgCounter}%
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\LastItem\fi}%
+           \else
+           \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\space
+           \fi
   \fi
 }%
-\newcommand{\InsertRowOfFigures}[5]{%
+\def\InsertRowOfFigures##1##2##3##4##5{%
   \refstepcounter{RowImageCounter}%
   \gdef\ArgIB{##1}% Width of outer minipage
   \gdef\ArgIC{##2}% Width
@@ -187,7 +192,12 @@
            \ReadArgument{HeightImage}{##3}%
            \ReadArgument{AlignImage}{##4}%
 }
-\newcommand{\InsertCaptions}[4][]{%
+\def\InsertCaptions{%
+  \@ifnextchar[
+    {\InsertCaptionsB}%
+    {\InsertCaptionsC}%
+}
+\def\InsertCaptionsB[##1]##2##3##4{%
   \gdef\ArgICA{##1}% Label
   \gdef\ArgICB{##2}% Caption (use {} if caption contains a comma)
   \gdef\ArgICC{##3}% Align of captions
@@ -195,6 +205,15 @@
   \ReadArgument{CaptionImage}{##2}%
   \ReadArgument{LabelImage}{##1}%
   \ReadArgument{CaptionAlign}{##3}%
+}
+\def\InsertCaptionsC##1##2##3{%
+  \gdef\ArgICA{}% Label
+  \gdef\ArgICB{##1}% Caption (use {} if caption contains a comma)
+  \gdef\ArgICC{##2}% Align of captions
+  \gdef\ArgICD{##3}% Type of caption (figure,subfigure): Only one type (no comma)
+  \ReadArgument{CaptionImage}{##1}%
+  \ReadArgument{LabelImage}{}%
+  \ReadArgument{CaptionAlign}{##2}%
 }
 \BODY
 \xdef\NumRows{\the\value{RowImageCounter}}%
