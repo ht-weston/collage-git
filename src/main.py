@@ -169,8 +169,8 @@ def to_latex(dirpath):
                 labellist="["
                 captlist="{"
             cnt+=1
-            if ((AddedEnd==0) & (col>=lim)):
-                  latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+        if ((AddedEnd==0) & (col>=lim)):
+              latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
     return latex
 
 if __name__ == "__main__":
