@@ -5,6 +5,8 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 import glob
 import sys
+from collections import defaultdict
+
 
 class img():
     @property
@@ -116,7 +118,7 @@ class img():
         return (self.ctime >= other.ctime)
 
     def __repr__(self):
-        return "%s" % (self.ctime)
+        return "%s" % (self.path)
 
 def to_latex(dirpath):
     cnt=1
@@ -126,46 +128,49 @@ def to_latex(dirpath):
     cols=2
     AddedEnd=0
     lim=len(glob.glob1(dirpath,"*.jpg"))
-    figlist="{"
-    captlist="{"
-    labellist="["
-    latex="""\\begin{minipage}{\\linewidth}
-    \\begin{InsertImages}
-    """
-    files = os.listdir(dirpath)
-    imgs = []
-    for f in files:
-        try:
-            imgs.append(img(dirpath + f))
-        except Exception as e:
-            continue
+    imgdict = defaultdict(list)
+    latex=""
+    # result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] == '.txt']
+    for dp,dn,fs in os.walk(dirpath):
+        for f in fs:
+            try:
+                imgdict[dp].append(img(os.path.join(dp,f)))
+            except Exception as e:
+                continue
+        imgdict[dp].sort(key=lambda x: x.ctime,reverse=False)
 
-    imgs.sort(key=lambda x: x.ctime,reverse=False)
-
-    for f in imgs:
-        if ((cnt)%(cols)):
-           figlist+="%s,"%f.path
-           captlist+="Figure %s,"%cnt
-           labellist+="Fig:%s,"%cnt
-        else:
-            row+=1
-            latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
-            figlist="{"
-            latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
-            # test
-            if (rows==row):
-              latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
-              AddedEnd=1
-              row=0
-              if cnt < lim:
-                latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
+    for key,fs in imgdict.items():
+        latex+="\section{%s}\n"%(key)
+        figlist="{"
+        captlist="{"
+        labellist="["
+        latex+="""\\begin{minipage}{\\linewidth}
+        \\begin{InsertImages}
+        """
+        for f in fs:
+            if ((cnt)%(cols)):
+               figlist+="%s,"%f.path
+               captlist+="Figure %s,"%cnt
+               labellist+="Fig:%s,"%cnt
             else:
-                AddedEnd=0
-            labellist="["
-            captlist="{"
-        cnt+=1
-    if ((AddedEnd==0) & (col>=lim)):
-          latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+                row+=1
+                latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
+                figlist="{"
+                latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
+                # test
+                if (rows==row):
+                  latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+                  AddedEnd=1
+                  row=0
+                  if cnt < lim:
+                    latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
+                else:
+                    AddedEnd=0
+                labellist="["
+                captlist="{"
+            cnt+=1
+            if ((AddedEnd==0) & (col>=lim)):
+                  latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
     return latex
 
 if __name__ == "__main__":

@@ -14,18 +14,19 @@ def isclose(a, b, rel_tol=1e-05, abs_tol=0.0):
 
 class TestMain(unittest.TestCase):
     def setUp(self):
-        d='./src/imgs/'
-        files = os.listdir(d)
-        for f in files:
-            try:
-                self.imgs.append(img(d + f))
-            except:
-                continue
+        self.imgdict = defaultdict(list)
+        for dp,dn,fs in os.walk("./src/imgs/"):
+            for f in fs:
+                try:
+                    self.imgsdict[dp].append(img(os.path.join(dp,f)))
+                except Exception as e:
+                    continue
+            # self.imgdict[dp].sort(key=lambda x: x.ctime,reverse=False)
 
-    def test_img(self):
-        print(self.imgs[0].gpsLong)
-        print(self.imgs[1].path)
-        print(self.imgs[1].ctime)
+    def off_test_img(self):
+        # print(self.imgs[0].gpsLong)
+        # print(self.imgs[1].path)
+        # print(self.imgs[1].ctime)
         assert(False)
 
     def test_tolatex(self):
