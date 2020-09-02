@@ -1,4 +1,4 @@
-\ProvidesPackage{collage}[2020/07/17 package collage]
+\ProvidesPackage{collage}[2020/08/17 package collage]
 
 \RequirePackage{graphicx}
 \RequirePackage{fancyhdr}
@@ -7,6 +7,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{picins}
 \RequirePackage{xstring}
+\usepackage[space]{grffile}
 %\RequirePackage{alphalph}
 %\gdef\Alph#1{\AlphAlph{#1}}
 % this is found in latex.ltx:
@@ -146,7 +147,7 @@
   \setcounter{testImgCounter}{0}%
   \def\ArgRAB{##2}%
   \foreach \Item in {##2}{%
-    \refstepcounter{testImgCounter}%
+    \stepcounter{testImgCounter}%
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\Item}%
   \ifnum\value{testImgCounter}<\value{ImageCounter}
   \xdef\LastValue{\the\value{testImgCounter}}%
@@ -156,15 +157,15 @@
            { %
              \ifx\ArgRAA\LabelImage
              \ifx\ArgRAB\empty
-             \refstepcounter{testImgCounter}%
+             \stepcounter{testImgCounter}%
              \edef\MyLabel{fig:NL:\arabic{RowImageCounter}-\arabic{testImgCounter}}%
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\MyLabel%
              \else
-             \refstepcounter{testImgCounter}%
+             \stepcounter{testImgCounter}%
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\LastItem%
              \fi
              \else
-             \refstepcounter{testImgCounter}%
+             \stepcounter{testImgCounter}%
              \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\LastItem\fi}%
            \else
            \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\space
@@ -172,7 +173,7 @@
   \fi
 }%
 \def\InsertRowOfFigures##1##2##3##4##5{%
-  \refstepcounter{RowImageCounter}%
+  \stepcounter{RowImageCounter}%
   \gdef\ArgIB{##1}% Width of outer minipage
   \gdef\ArgIC{##2}% Width
   \gdef\ArgID{##3}% Max Height
@@ -181,7 +182,7 @@
   \setcounter{ImageCounter}{0}%
   \foreach \Image[count=\imgs from 1] in \ArgIF
            {%
-             \refstepcounter{ImageCounter}%
+             \stepcounter{ImageCounter}%
             \global\expandafter\let\csname RowImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname\Image%
            }%
            \xdef\ImagesPerRow{\the\value{ImageCounter}}%
@@ -211,6 +212,7 @@
   \gdef\ArgICB{##1}% Caption (use {} if caption contains a comma)
   \gdef\ArgICC{##2}% Align of captions
   \gdef\ArgICD{##3}% Type of caption (figure,subfigure): Only one type (no comma)
+   \captionsetup{type=\ArgICD}%
   \ReadArgument{CaptionImage}{##1}%
   \ReadArgument{LabelImage}{}%
   \ReadArgument{CaptionAlign}{##2}%
@@ -222,14 +224,14 @@
 \foreach \row in {1,...,\NumRows}
          {% Add Row
            \noindent\begin{minipage}[t]{\linewidth}
-           \refstepcounter{RowImageCounter}%
+           \stepcounter{RowImageCounter}%
            \xdef\NumImagesPerRow{\csname ImagesPerRow-\Alph{RowImageCounter}\endcsname}%
            \ifnum\NumImagesPerRow>0
            \par\noindent%
            \begin{minipage}{\ArgIB}
            \setcounter{ImageCounter}{0}%
            \foreach \image[count=\j from 1] in {1,...,\NumImagesPerRow}
-                    {\refstepcounter{ImageCounter}%
+                    {\stepcounter{ImageCounter}%
                       \ifnum\j=1
                       \null\hfil
                       \fi
@@ -239,7 +241,7 @@
                       \global\expandafter\let\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname\Width%
                       \parbox[\csname AlignImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname]{\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}{\centering\expandafter\myIncludeGraphics\csname RowImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}%
                       \ifnum\j=\NumImagesPerRow
-                      \hfil\hfill\par%
+                      \hfill\par%
                       \else
                       \hfil%
                       \fi%
@@ -253,13 +255,13 @@
            \vskip-\dimexpr2\parskip+0.8\baselineskip\relax
            \begin{minipage}{\ArgIB}
               \foreach \image[count=\j from 1] in {1,...,\NumImagesPerRow}
-                       {\refstepcounter{ImageCounter}%
+                       {\stepcounter{ImageCounter}%
                       \ifnum\j=1
                       \null\hfil%
                       \fi
-                      \parbox[\csname CaptionAlign\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname]{\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}{\captionof\ArgICD{\csname CaptionImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}\expandafter\label\csname LabelImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}%
+                      \parbox[\csname CaptionAlign\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname]{\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}{\captionsetup{type=\ArgICD}\caption{\csname CaptionImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}\expandafter\label\csname LabelImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}%
                       \ifnum\j=\NumImagesPerRow
-                      \hfil\hfill\par%
+                      \hfill\par%
                       \else
                       \hfil%
                       \fi 
@@ -271,5 +273,7 @@
          No images
          \fi
 }
+
+
 
 \endinput
