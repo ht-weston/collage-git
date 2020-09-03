@@ -121,11 +121,16 @@ class img():
         return "%s" % (self.path)
 
 def to_latex(dirpath):
-    cnt=1
+    cnt=0
     col=1
-    row=0
+    row=1
     rows=3
-    cols=2
+    cols=3
+    proposedWidth=2 #in
+    proposedHeight=1.5 #in
+    collageID=0
+    totalRows=1
+    totalCols=0
     AddedEnd=0
     lim=len(glob.glob1(dirpath,"*.jpg"))
     imgdict = defaultdict(list)
@@ -139,38 +144,84 @@ def to_latex(dirpath):
                 continue
         imgdict[dp].sort(key=lambda x: x.ctime,reverse=False)
 
+    shapeFile = open("shapeFile.csv","w")
+    shapeFile.write("file path, file name, atitude, longitude, collage id\n")
     for key,fs in imgdict.items():
-        latex+="\section{%s}\n"%(key)
+        latex+="\n\n\section{%s}\n\\refstepcounter{imsection}\n"%(key[key.rindex('/',0,-1)+1:-1])
         figlist="{"
         captlist="{"
         labellist="["
-        latex+="""\\begin{minipage}{\\linewidth}
-        \\begin{InsertImages}
-        """
-        for f in fs:
-            if ((cnt)%(cols)):
-               figlist+="%s,"%f.path
-               captlist+="Figure %s,"%cnt
-               labellist+="Fig:%s,"%cnt
-            else:
-                row+=1
-                latex+="\InsertRowOfFigures{\linewidth}{3.1in}{2.5in}{m}%s%s}\n"%(figlist,f.path)
-                figlist="{"
-                latex+="\InsertCaptions%sFig:%s]%sFigure %s}{t}{figure}\n"%(labellist,cnt,captlist,cnt)
-                # test
-                if (rows==row):
-                  latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
-                  AddedEnd=1
-                  row=0
-                  if cnt < lim:
-                    latex+="""\n\\begin{minipage}{\linewidth}\n\\begin{InsertImages}\n"""
-                else:
-                    AddedEnd=0
-                labellist="["
-                captlist="{"
+        cnt=0
+        if (len(fs)):
+            latex+="\n\\noindent\\begin{minipage}{\\linewidth}\n\\begin{InsertImages}"
+            col=1
+            row=1
+        else:
             cnt+=1
-        if ((AddedEnd==0) & (col>=lim)):
-              latex+="""\end{InsertImages}\n\end{minipage}\n\n"""
+            continue
+        for f in fs:
+            cnt+=1
+            AddedEnd=0
+            im=Image.open(f.path)
+            wid,hei=im.size
+            if ((cnt==len(fs))):
+                figlist+="%s}"%f.path
+                captlist+="%s}"%f.path[f.path.rindex('/',0,-4)+1:-4]
+                labellist+="Fig:\\theimsection.%s]"%cnt
+                col+=1
+                collageID+=1
+                totalCols+=1
+                shapeFile.write("%s, %s, %s, %s, %s\n"%(f.path,f.path[f.path.rindex('/',0,-4)+1:-4],totalRows,totalCols,collageID ))# file path, file name, atitude, longitude, collage id.
+            elif((col)%(cols)):
+                figlist+="%s,"%f.path
+                captlist+="%s,"%f.path[f.path.rindex('/',0,-4)+1:-4]
+                labellist+="Fig:\\theimsection.%s,"%cnt
+                col+=1
+                collageID+=1
+                totalCols+=1
+                shapeFile.write("%s, %s, %s, %s, %s\n"%(f.path,f.path[f.path.rindex('/',0,-4)+1:-4],totalRows,totalCols,collageID ))
+            else:
+                figlist+="%s}"%f.path
+                captlist+="%s}"%f.path[f.path.rindex('/',0,-4)+1:-4]
+                labellist+="Fig:\\theimsection.%s]"%cnt
+                col=1
+                row+=1
+                collageID+=1
+                totalCols+=1
+                shapeFile.write("%s, %s, %s, %s, %s\n"%(f.path,f.path[f.path.rindex('/',0,-4)+1:-4],totalRows,totalCols,collageID ))
+                totalRows+=1
+                totalCols=0
+                latex+="\InsertRowOfFigures{\linewidth}{%sin}{%sin}{m}%s\n"%(proposedWidth,proposedHeight,figlist)
+                latex+="\InsertCaptions%s%s{t}{figure}\n"%(labellist,captlist)
+                figlist="{"
+                captlist="{"
+                labellist="["
+                
+            if ((row==rows)):
+                latex+="\end{InsertImages}\n\end{minipage}\n\n"
+                AddedEnd=1
+                row=1
+                if (cnt<len(fs)):
+                    latex+="\n\\begin{minipage}{\\linewidth}\n\\begin{InsertImages}\n"
+                    AddedEnd=0
+                    row=1
+
+            elif((cnt==len(fs))&(AddedEnd==0)):
+                if (figlist!="{"):
+                    totalCols=0
+                    totalRows+=1
+                    latex+="\InsertRowOfFigures{\linewidth}{%sin}{%sin}{m}%s\n"%(proposedWidth,proposedHeight,figlist)
+                    latex+="\InsertCaptions%s%s{t}{figure}\n"%(labellist,captlist)
+                    #k=1
+                    #for letterB in figlist:
+                    #    if (letterB==','):
+                    #        k+=1
+                    #collageID+=k
+                    
+                latex+="\end{InsertImages}\n\end{minipage}\n\n"
+                AddedEnd=1
+                row=1
+                
     return latex
 
 if __name__ == "__main__":
