@@ -123,11 +123,11 @@ class img():
 def to_latex(dirpath):
     cnt=0
     col=1
-    row=1
-    rows=3
-    cols=3
-    proposedWidth=2 #in
-    proposedHeight=1.5 #in
+    row=0
+    rows=2
+    cols=2
+    proposedWidth=3.1 #in
+    proposedHeight=2.5 #in
     collageID=0
     totalRows=1
     totalCols=0
@@ -147,15 +147,15 @@ def to_latex(dirpath):
     shapeFile = open("shapeFile.csv","w")
     shapeFile.write("file path, file name, atitude, longitude, collage id\n")
     for key,fs in imgdict.items():
-        latex+="\n\n\section{%s}\n\\refstepcounter{imsection}\n"%(key[key.rindex('/',0,-1)+1:-1])
         figlist="{"
         captlist="{"
         labellist="["
         cnt=0
         if (len(fs)):
+            latex+="\n\n\section{%s}\n\\refstepcounter{imsection}\n"%(key[key.rindex('/',0,-1)+1:-1])
             latex+="\n\\noindent\\begin{minipage}{\\linewidth}\n\\begin{InsertImages}"
             col=1
-            row=1
+            row=0
         else:
             cnt+=1
             continue
@@ -196,15 +196,15 @@ def to_latex(dirpath):
                 figlist="{"
                 captlist="{"
                 labellist="["
-                
+
             if ((row==rows)):
                 latex+="\end{InsertImages}\n\end{minipage}\n\n"
                 AddedEnd=1
-                row=1
+                row=0
                 if (cnt<len(fs)):
                     latex+="\n\\begin{minipage}{\\linewidth}\n\\begin{InsertImages}\n"
                     AddedEnd=0
-                    row=1
+                    row=0
 
             elif((cnt==len(fs))&(AddedEnd==0)):
                 if (figlist!="{"):
@@ -217,11 +217,11 @@ def to_latex(dirpath):
                     #    if (letterB==','):
                     #        k+=1
                     #collageID+=k
-                    
+
                 latex+="\end{InsertImages}\n\end{minipage}\n\n"
                 AddedEnd=1
-                row=1
-                
+                row=0
+
     return latex
 
 if __name__ == "__main__":
