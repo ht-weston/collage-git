@@ -1,0 +1,279 @@
+\ProvidesPackage{collage}[2020/08/17 package collage]
+
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+\RequirePackage{pgffor}
+\RequirePackage{environ}
+\RequirePackage{subcaption}
+\RequirePackage{picins}
+\RequirePackage{xstring}
+\usepackage[space]{grffile}
+%\RequirePackage{alphalph}
+%\gdef\Alph#1{\AlphAlph{#1}}
+% this is found in latex.ltx:
+% \def\@car#1#2\@nil{#1}
+\def\iffirsttoken#1#2{%
+  % define \@first@token to be the once expanded \@car of the first argument
+  % i.e. the first token or balanced group:
+  \expandafter\def\expandafter\@first@token\expandafter{\@car#1\@nil}%
+  % test if the expansion of \@first@token is the same as #2:
+  \expandafter\ifx\@first@token#2\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+
+
+
+%counter and box for the \anImage Command
+\newsavebox{\mypicbox}
+\newcounter{anImageCounter}
+
+
+%Definition of the command \anImage
+%
+% Usage:
+% \anImage[<label -optional argument->]{<Caption>}{<Width>}{<Height>}{<Type>}{<FileName>}
+%
+% <Type>: l=Image on left inside wrappred Text
+%         r=Image on right inside wrapped Text
+%         m=minipage (will be placed at the code's place and can have a caption or not) -Use carefuly ... Could leave empty space if can't fit in the page-
+%         f=floating figure [!htb] option
+%
+%
+% Arguments
+% #1: Like \aTable #1 optional argument is the label of the table
+% If no label is given you may \ref on it by using the label:
+% `fig:NL:#' where # is the number of NonLabeled \aTable
+% #2 is the caption of the Figure. If it is empty (not even a space) no caption and label is given to l,r or m images (see below)... [For f images always we should have a caption (and a label)]... If it is not empty but space... Then just "Figure #" is given as a caption
+% #3 is the width of the image ... by using a comma we can add a x-offset
+% #4 is the height of the image.... by using a comma we may add a y-offfset
+% #5 The type of the image (l for left and wrapped text around it)
+%                          (r for right and wrapped text around it)
+%                          (m for minipage with an image inside and possible caption -NON floating but just added where the code is... Carefull usega because it may leave empty space in the previous page if doesn't fit in its height-
+%                          (f floating figure [!htb] option)
+% #6 the file name
+\newcommand\anImage[6][]{\null\ignorespaces%
+  \def\ArgA{#1}%
+  \ifx\ArgA\empty%
+  \stepcounter{anImageCounter}%
+  \xdef\MFLabel{fig:NL:\theanImageCounter}%
+  \else%
+  \xdef\MFLabel{#1}%
+  \fi%
+  \xdef\ImageXSep{0pt}%
+  \xdef\ImageYSep{0pt}%
+  \foreach \x[count=\i from 1] in {#3}{\ifnum\i=1\xdef\ImageWidth{\x}\else\xdef\ImageXSep{\x}\fi}%
+  \foreach \y[count=\i from 1] in {#4}{\ifnum\i=1\xdef\ImageHeight{\y}\else\xdef\ImageYSep{\y}\fi}%
+  \iffirsttoken#5{f}{% Floating figure
+            \begin{figure}[!htb]
+              \centering%
+              \ifdefined\ImageHeight
+              \includegraphics[width=\ImageWidth, height=\ImageHeight]{#6}%
+              \else
+              \includegraphics[width=\ImageWidth, keepaspectratio]{#6}%
+              \fi
+                \caption{#2}\label{\MFLabel}%
+            \end{figure}}%
+               {% Not floating figure
+                 \iffirsttoken#5{m}{% Minipage
+      \par\noindent\begin{minipage}{\linewidth}%
+      \centering%
+            \ifdefined\ImageHeight
+              \includegraphics[width=\ImageWidth, height=\ImageHeight]{#6}%
+              \else
+              \includegraphics[width=\ImageWidth, keepaspectratio]{#6}%
+              \fi%
+            \edef\Capt{#2}%
+        \ifx\Capt\empty\relax\else\captionof{figure}{#2}\label{\MFLabel}\fi%
+                 \end{minipage}}{% Not minipage
+        \IfSubStr{#5}{r}{% Wraped right
+        \edef\Capt{#2}%
+        \ifx\Capt\empty%
+        \savebox{\mypicbox}{\parbox{\dimexpr\ImageWidth}{\vspace{0pt}\rule{\linewidth}{0pt}\\\centering\includegraphics[width=\ImageWidth, \ifdefined\ImageHeight height=\ImageHeight\else keepaspectratio\fi]{#6}\noindent\rule{\linewidth}{0pt}}}%
+        \parpic(\ImageWidth,\dimexpr\ht\mypicbox+\dp\mypicbox\relax)(\dimexpr\ImageXSep,\dimexpr-\dimexpr\ImageYSep\relax+0.5\dimexpr\ht\mypicbox+\dp\mypicbox\relax\relax)[r]{\usebox{\mypicbox}}%
+        \else%
+         \savebox{\mypicbox}{\parbox{\dimexpr\ImageWidth}{\vspace{0pt}\rule{\linewidth}{0pt}\\\centering\ifdefined\ImageHeight
+              \includegraphics[width=\ImageWidth, height=\ImageHeight]{#6}%
+              \else
+              \includegraphics[width=\ImageWidth, keepaspectratio]{#6}%
+              \fi\captionof{figure}{#2}\label{\MFLabel}\noindent\rule{\linewidth}{0pt}}}%
+        \parpic(\ImageWidth,\dimexpr\ht\mypicbox+\dp\mypicbox\relax)(\dimexpr\ImageXSep,\dimexpr-\dimexpr\ImageYSep\relax+0.5\dimexpr\ht\mypicbox+\dp\mypicbox\relax\relax)[r]{\usebox{\mypicbox}}%
+        \fi%
+        }{%Wraped left
+      \edef\Capt{#2}%
+        \ifx\Capt\empty%
+        \savebox{\mypicbox}{\parbox{\dimexpr\ImageWidth}{\vspace{0pt}\rule{\linewidth}{0pt}\\\centering\ifdefined\ImageHeight
+              \includegraphics[width=\ImageWidth, height=\ImageHeight]{#6}%
+              \else
+              \includegraphics[width=\ImageWidth, keepaspectratio]{#6}%
+              \fi\noindent\rule{\linewidth}{0pt}}}%
+        \parpic(\ImageWidth,\dimexpr\ht\mypicbox+\dp\mypicbox\relax)(\dimexpr\ImageXSep,\dimexpr-\dimexpr\ImageYSep\relax+0.5\dimexpr\ht\mypicbox+\dp\mypicbox\relax\relax)[l]{\usebox{\mypicbox}}%
+        \else%
+         \savebox{\mypicbox}{\parbox{\dimexpr\ImageWidth}{\vspace{0pt}\rule{\linewidth}{0pt}\\\centering\ifdefined\ImageHeight
+              \includegraphics[width=\ImageWidth, height=\ImageHeight]{#6}%
+              \else
+              \includegraphics[width=\ImageWidth, keepaspectratio]{#6}%
+              \fi\captionof{figure}{#2}\label{\MFLabel}\noindent\rule{\linewidth}{0pt}}}%
+         \parpic(\ImageWidth,\dimexpr\ht\mypicbox+\dp\mypicbox\relax)(\dimexpr\ImageXSep,\dimexpr-\dimexpr\ImageYSep\relax+0.5\dimexpr\ht\mypicbox+\dp\mypicbox\relax\relax)[l]{\usebox{\mypicbox}}\fi%
+               }}} \ignorespacesafterend}
+
+
+%Boxes and counters for the Environment "InsertImages"
+\newcounter{RowImageCounter}
+\newcounter{ImageCounter}
+\newcounter{testImgCounter}
+\newsavebox{\imagebox}
+
+
+% Definition of "InsertImages" environment
+%
+% Usage :
+% \begin{InsertImages}
+% \InsertRowOfFigures{<Width of outer minipage>}{<Width of image>}{<Max Height of Image>}{<Align of inner parbox: t,b or m>}{<Images -comma seperated list ...->}
+%
+% \InsertCaptions[<Label> -Optional Argument-]{<Caption>}{<Align of captions>}{<Type Of Caption>}
+%
+% \end{InsertImages}
+
+
+\NewEnviron{InsertImages}{%
+  \setcounter{ImageCounter}{0}%
+  \setcounter{RowImageCounter}{0}%
+\def\ReadArgument##1##2{%
+  \gdef\LabelImage{LabelImage}%
+  \gdef\ArgRAA{##1}%
+  \setcounter{testImgCounter}{0}%
+  \def\ArgRAB{##2}%
+  \foreach \Item in {##2}{%
+    \stepcounter{testImgCounter}%
+             \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\Item}%
+  \ifnum\value{testImgCounter}<\value{ImageCounter}
+  \xdef\LastValue{\the\value{testImgCounter}}%
+  \ifcsname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname
+  \xdef\LastItem{\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname}%
+  \foreach \mi in {\LastValue,...,\the\value{ImageCounter}}
+           { %
+             \ifx\ArgRAA\LabelImage
+             \ifx\ArgRAB\empty
+             \stepcounter{testImgCounter}%
+             \edef\MyLabel{fig:NL:\arabic{RowImageCounter}-\arabic{testImgCounter}}%
+             \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\MyLabel%
+             \else
+             \stepcounter{testImgCounter}%
+             \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\LastItem%
+             \fi
+             \else
+             \stepcounter{testImgCounter}%
+             \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\LastItem\fi}%
+           \else
+           \global\expandafter\let\csname ##1\Alph{RowImageCounter}-\Alph{testImgCounter}\endcsname\space
+           \fi
+  \fi
+}%
+\def\InsertRowOfFigures##1##2##3##4##5{%
+  \stepcounter{RowImageCounter}%
+  \gdef\ArgIB{##1}% Width of outer minipage
+  \gdef\ArgIC{##2}% Width
+  \gdef\ArgID{##3}% Max Height
+  \gdef\ArgIE{##4}% Align of inner minipage
+  \gdef\ArgIF{##5}% Images
+  \setcounter{ImageCounter}{0}%
+  \foreach \Image[count=\imgs from 1] in \ArgIF
+           {%
+             \stepcounter{ImageCounter}%
+            \global\expandafter\let\csname RowImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname\Image%
+           }%
+           \xdef\ImagesPerRow{\the\value{ImageCounter}}%
+           \global\expandafter\let\csname ImagesPerRow-\Alph{RowImageCounter}\endcsname\ImagesPerRow%
+           \setcounter{testImgCounter}{0}%
+           \ReadArgument{TypeImage}{##1}%
+           \ReadArgument{WidthImage}{##2}%
+           \ReadArgument{HeightImage}{##3}%
+           \ReadArgument{AlignImage}{##4}%
+}
+\def\InsertCaptions{%
+  \@ifnextchar[
+    {\InsertCaptionsB}%
+    {\InsertCaptionsC}%
+}
+\def\InsertCaptionsB[##1]##2##3##4{%
+  \gdef\ArgICA{##1}% Label
+  \gdef\ArgICB{##2}% Caption (use {} if caption contains a comma)
+  \gdef\ArgICC{##3}% Align of captions
+  \gdef\ArgICD{##4}% Type of caption (figure,subfigure): Only one type (no comma)
+  \ReadArgument{CaptionImage}{##2}%
+  \ReadArgument{LabelImage}{##1}%
+  \ReadArgument{CaptionAlign}{##3}%
+}
+\def\InsertCaptionsC##1##2##3{%
+  \gdef\ArgICA{}% Label
+  \gdef\ArgICB{##1}% Caption (use {} if caption contains a comma)
+  \gdef\ArgICC{##2}% Align of captions
+  \gdef\ArgICD{##3}% Type of caption (figure,subfigure): Only one type (no comma)
+   \captionsetup{type=\ArgICD}%
+  \ReadArgument{CaptionImage}{##1}%
+  \ReadArgument{LabelImage}{}%
+  \ReadArgument{CaptionAlign}{##2}%
+}
+\BODY
+\xdef\NumRows{\the\value{RowImageCounter}}%
+\setcounter{RowImageCounter}{0}%
+\ifnum\NumRows>0
+\foreach \row in {1,...,\NumRows}
+         {% Add Row
+           \noindent\begin{minipage}[t]{\linewidth}
+           \stepcounter{RowImageCounter}%
+           \xdef\NumImagesPerRow{\csname ImagesPerRow-\Alph{RowImageCounter}\endcsname}%
+           \ifnum\NumImagesPerRow>0
+           \par\noindent%
+           \begin{minipage}{\ArgIB}
+           \setcounter{ImageCounter}{0}%
+           \foreach \image[count=\j from 1] in {1,...,\NumImagesPerRow}
+                    {\stepcounter{ImageCounter}%
+                      \ifnum\j=1
+                      \null\hfil
+                      \fi
+                      \def\myIncludeGraphics{\includegraphics[height=\csname HeightImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname,width=\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname,keepaspectratio]}%
+                      \savebox{\imagebox}{\hbox{\expandafter\myIncludeGraphics\csname RowImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}}%
+                      \xdef\Width{\the\wd\imagebox}%
+                      \global\expandafter\let\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname\Width%
+                      \parbox[\csname AlignImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname]{\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}{\centering\expandafter\myIncludeGraphics\csname RowImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}%
+                      \ifnum\j=\NumImagesPerRow
+                      \hfill\par%
+                      \else
+                      \hfil%
+                      \fi%
+                      %
+           }%
+           \end{minipage}
+           \else
+           No images
+           \fi
+           \setcounter{ImageCounter}{0}%
+           \vskip-\dimexpr2\parskip+0.8\baselineskip\relax
+           \begin{minipage}{\ArgIB}
+              \foreach \image[count=\j from 1] in {1,...,\NumImagesPerRow}
+                       {\stepcounter{ImageCounter}%
+                      \ifnum\j=1
+                      \null\hfil%
+                      \fi
+                      \parbox[\csname CaptionAlign\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname]{\csname WidthImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}{\captionsetup{type=\ArgICD}\caption{\csname CaptionImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}\expandafter\label\csname LabelImage\Alph{RowImageCounter}-\Alph{ImageCounter}\endcsname}%
+                      \ifnum\j=\NumImagesPerRow
+                      \hfill\par%
+                      \else
+                      \hfil%
+                      \fi 
+                       }
+           \end{minipage}%
+           \end{minipage}
+         }%
+         \else
+         No images
+         \fi
+}
+
+
+
+\endinput
