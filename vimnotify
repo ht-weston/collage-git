@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Handle no variables, provide basic watch.
+#if [ -z "$1" ]
+#then
+      #echo "\$1 is empty"
+#else
+      #echo "\$1 is NOT empty"
+#fi
+
+# Check dir for .ignore file.
+
+okular ./dist/draft/main.pdf &!
+inotifywait -m -e close_write --format %e/%f ./src/ |
+while IFS=/ read -r events file; do
+    latexmk -outdir=../dist/draft -pdf -cd -quiet src/main.tex
+done
