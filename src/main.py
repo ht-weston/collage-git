@@ -152,7 +152,7 @@ def to_latex(dirpath):
         labellist="["
         cnt=0
         if (len(fs)):
-            latex+="\n\n\section{%s}\n\\refstepcounter{imsection}\n"%(key[key.rindex('/',0,-1)+1:-1])
+            latex+="\n\n\section*{%s}\n\\refstepcounter{imsection}\n"%(key[key.rindex('/',0,-1)+1:-1])
             latex+="\n\\noindent\\begin{minipage}{\\linewidth}\n\\begin{InsertImages}"
             col=1
             row=0
