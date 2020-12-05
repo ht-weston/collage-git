@@ -1,0 +1,45 @@
+#  Behavior
+#  - Order of dirs determine order of output.
+#  - This file stays synced with directory.  Captions and includes are preserved
+#    despite syncing behavior.  Id's are updated as necessary to prevent
+#    collisions.
+#  - Shapefile matches id and what is included in this key.yml.
+#  - Initial generation (or if key is missing) generates everything in the imgs
+#    folder.
+#
+# Note: It might be easier to generate this key.yml, then using this to generate
+# paths.  Ie editings the img class.
+
+dir: Site 10: South of E. Valley Blvd between S. Collwood Ave and N. Orange Blossome Ave/
+  include: true
+  images:
+    img:
+      - id: 1 #Id matches with Figure # of caption. Id's shall be unique.
+      - include: true
+      - caption: "I like this picture." # Example in latex > Figure #: I like this picture.
+      - relpath: Green Alleys-2020-07-17-13-31-50.jpg
+    img:
+      - id: 2
+      - include: true
+      - caption: "Nice." # Decouple this, I might want to add automation to the caption later, such as auto generating direction, points, street names etc.
+      - relpath: Green Alleys-2020-07-17-13-31-53.jpg
+    img:
+      - id: 3
+      - include: true
+      - caption: # This will default to time stamp, Figure #: yyyy-mm-dd hh:mm:ss
+      - relpath: Green Alleys-2020-07-17-13-31-58.jpg
+    img:
+      - id: 4
+      - include: false
+      - caption: # This will default to time stamp, yyyy-mm-dd hh:mm:ss
+      - relpath: Green Alleys-2020-07-17-13-32-02.jpg
+dir: Site 1: North of W Slauson Ave between S. Mullen Ave and Kenniston Ave/
+  include: false
+dir: Site 2: W 54th St between Deane Ave and S. Harcourt Ave/
+  include: true
+    # Repeat relative to Site 10
+
+# dirs not listed are not included in the final output!
+#dir: Site 3: North of Imperial hwy between S. Hobart Blvd and S. Normandie Ave/
+#dir: Site 5: Nadeau St between Crockett Blvd and Bell Ave/
+#dir: Site 7: North of E 90th St/
