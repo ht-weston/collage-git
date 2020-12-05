@@ -26,3 +26,6 @@ size:
 images:
 	cd src/
 	python main.py ./imgs/ > ./imgs.tex
+
+error:
+	bat ./dist/draft/main.log
