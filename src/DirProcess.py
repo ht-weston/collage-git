@@ -44,7 +44,7 @@ class DirProcessor:
 
         return v
 
-    def latex_handle_section(self, folder_name, files_in_folder):
+    def latex_handle_section(self, latex_file, folder_name, files_in_folder):
         retval = ""
 
         if len(files_in_folder) == 0:
@@ -64,26 +64,29 @@ class DirProcessor:
             counter += len(row)
 
         retval += "\\pagebreak\n"
-        return retval
+
+        latex_file.write(retval)
 
     def handle_write_shapefile(self, shape_file, files_in_folder):
         for image_file in files_in_folder:
             shape_file.write("%s, %s, %s, %s, %s\n" % (image_file.path, image_file.name, image_file._gpsLati, image_file.gpsLong, self.image_num))
             self.image_num += 1
 
-
-    def do_process(self):
-        latex = ""
+    def do_process(self, latex_filename, shape_filename):
         img_dict = self.get_images()
 
-        shape_file = open("shapeFile.csv", "w")
+        shape_file = open(shape_filename, "w")
         shape_file.write("file path, file name, latitude, longitude, collage id\n")
+
+        latex_file = open(latex_filename, "w")
 
         for folder_name, files_in_folder in img_dict.items():
             # this loop iterates once for each of the main folders
 
             self.handle_write_shapefile(shape_file, files_in_folder)
-            latex += self.latex_handle_section(folder_name, files_in_folder)
+            self.latex_handle_section(latex_file, folder_name, files_in_folder)
 
         shape_file.close()
-        return latex
+        latex_file.close()
+
+        return

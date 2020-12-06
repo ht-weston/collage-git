@@ -1,5 +1,6 @@
 SRC = $(wildcard src/*.tex)
 OUT = $(wildcard dist/*)
+PYPROG=python3
 
 all: clean
 	latexmk -outdir=../dist/draft -pdf -cd -quiet src/main.tex
@@ -24,8 +25,7 @@ size:
 	git count-objects -vH
 
 images:
-	cd src/
-	python main.py ./imgs/ > ./imgs.tex
+	$(PYPROG) src/main.py src/imgs/ src/imgs.tex src/shapeFile.csv
 
 error:
 	bat ./dist/draft/main.log
