@@ -2,8 +2,7 @@ SRC = $(wildcard src/*.tex)
 OUT = $(wildcard dist/*)
 PYPROG=python3
 
-all: clean
-	latexmk -outdir=../dist/draft -pdf -cd -quiet src/main.tex
+all: images publish
 
 watch: all
 	./vimnotify
@@ -13,7 +12,7 @@ view: all
 	okular ./dist/draft/main.pdf &!
 
 publish:
-	latexmk -outdir=../dist/draft -pdf -cd -quiet src/main.tex
+	latexmk -outdir=dist/draft -pdf -quiet src/main.tex
 
 clean:
 	rm -rf dist/draft/*
@@ -26,6 +25,9 @@ size:
 
 images:
 	$(PYPROG) src/main.py src/imgs/ src/imgs.tex src/shapeFile.csv
+
+test:
+	pytest
 
 error:
 	bat ./dist/draft/main.log

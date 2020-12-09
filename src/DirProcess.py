@@ -1,6 +1,8 @@
 from collections import defaultdict
 import os
 from Img import img
+import yaml
+import pprint
 
 MAX_ROW_IMAGES = 2
 MAX_WIDTH = 6.2
@@ -11,10 +13,33 @@ def get_safe_name(name):
     return name.replace("_", "\\_")
 
 
+def get_yaml_filename(dir):
+    """
+    get the name of the yaml index file corresponding to a directory
+    :param dir: a directory name, ending in /
+    :return:
+    """
+    return dir + "key.yml"
+
+
 class DirProcessor:
     def __init__(self, directory):
         self.directory = directory
         self.image_num = 1
+
+    def _get_yaml_name(self):
+        return self.directory + "key.yml"
+
+    def _load_yaml_index(self):
+        if not os.path.exists(self._get_yaml_name()):
+            pass
+
+        yaml_file = open(self._get_yaml_name(), "r+")
+        yaml_dict = yaml.load(yaml_file)
+
+        for k, v in yaml_dict.items():
+            print(k)
+            print(yaml_dict[k])
 
     def get_images(self):
         img_dict = defaultdict(list)

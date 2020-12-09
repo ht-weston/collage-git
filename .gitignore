@@ -138,3 +138,6 @@ dmypy.json
 .pyre/
 *.zip
 {}
+utest/CheckpointA
+utest/CheckpointB
+utest/CheckpointC

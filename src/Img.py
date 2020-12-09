@@ -3,7 +3,11 @@ from PIL.ExifTags import TAGS, GPSTAGS
 import os
 
 
-class img():
+def get_image_name_from_path(path):
+    return os.path.splitext(os.path.basename(path))[0]
+
+
+class img:
     def __init__(self, path):
         try:
             pic = Image.open(path)
@@ -27,17 +31,20 @@ class img():
 
             coord = img._get_coordinates(geotags)
             self._path = path
-            self._name = os.path.splitext(os.path.basename(path))[0]
+            self._name = get_image_name_from_path(path)
             self._gpsLati = coord[0]
             self._gpsLong = coord[1]
             self._ctime = labels['DateTime']
+            self._caption = self._create_caption()
             self._desc = labels["UserComment"]
 
         except Exception as e:
             raise e
 
-    def _get_decimal_from_dms(dms, ref):
+    def _create_caption(self):
+        return self._ctime
 
+    def _get_decimal_from_dms(dms, ref):
         try:
             degrees = dms[0][0] / dms[0][1]
             minutes = dms[1][0] / dms[1][1] / 60.0
