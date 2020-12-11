@@ -12,7 +12,7 @@ view: all
 	okular ./dist/draft/main.pdf &!
 
 publish:
-	latexmk -outdir=dist/draft -pdf -quiet src/main.tex
+	TEXINPUTS=src/: latexmk -outdir=dist/draft -pdf -quiet src/main.tex
 
 clean:
 	rm -rf dist/draft/*

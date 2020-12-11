@@ -15,7 +15,7 @@ class SiteRecord:
         :param the_dir: directory name for site, includes trailing /
         """
         self.directory = the_dir
-        self.include = False
+        self.include = True
         self.images = []
         self._load_from_folder()
         self.alias = self._get_site_alias()

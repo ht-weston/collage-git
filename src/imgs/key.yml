@@ -35,7 +35,7 @@ sites:
       and N. Orange Blossome Ave/Green Alleys-2020-07-17-13-32-02.jpg'
     include: false
     relpath: Green Alleys-2020-07-17-13-32-02
-  include: false
+  include: true
 - !!python/object:SiteRecord.SiteRecord
   alias: 'Site 1: North of W Slauson Ave between S. Mullen Ave and Kenniston Ave'
   directory: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
@@ -151,7 +151,7 @@ sites:
       Alleys-2020-07-17-12-23-13.jpg'
     include: true
     relpath: Green Alleys-2020-07-17-12-23-13
-  include: false
+  include: true
 - !!python/object:SiteRecord.SiteRecord
   alias: 'Site 3: North of Imperial hwy between S. Hobart Blvd and S. Normandie Ave'
   directory: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
@@ -199,7 +199,7 @@ sites:
       S. Normandie Ave/Green Alleys-2020-07-17-11-23-50.jpg'
     include: true
     relpath: Green Alleys-2020-07-17-11-23-50
-  include: false
+  include: true
 - !!python/object:SiteRecord.SiteRecord
   alias: 'Site 5: Nadeau St between Crockett Blvd and Bell Ave'
   directory: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/'
@@ -253,7 +253,7 @@ sites:
       Alleys-2020-07-17-10-48-27.jpg'
     include: true
     relpath: Green Alleys-2020-07-17-10-48-27
-  include: false
+  include: true
 - !!python/object:SiteRecord.SiteRecord
   alias: 'Site 7: North of E 90th St'
   directory: './src/imgs/Site 7: North of E 90th St/'
@@ -276,4 +276,4 @@ sites:
     image_path: './src/imgs/Site 7: North of E 90th St/Green Alleys-2020-07-17-10-28-53.jpg'
     include: true
     relpath: Green Alleys-2020-07-17-10-28-53
-  include: false
+  include: true

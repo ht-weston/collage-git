@@ -124,7 +124,8 @@ class ProjectPrinter:
 
         sites = self.project_record.sites
         for site in sites:
-            output_file.write(self._handle_site(site))
+            if site.include:
+                output_file.write(self._handle_site(site))
 
         output_file.close()
 
