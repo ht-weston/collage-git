@@ -1,0 +1,279 @@
+!!python/object:ProjectRecord.ProjectRecord
+basedir: ./src/imgs/
+project_name: default project name
+sites:
+- !!python/object:SiteRecord.SiteRecord
+  alias: Ninja Turtles Entrance
+  directory: './src/imgs/Site 10: South of E. Valley Blvd between S. Collwood Ave
+    and N. Orange Blossome Ave/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 13:31:49
+    id: 1
+    image_path: './src/imgs/Site 10: South of E. Valley Blvd between S. Collwood Ave
+      and N. Orange Blossome Ave/Green Alleys-2020-07-17-13-31-50.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-13-31-50
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 13:31:52
+    id: 2
+    image_path: './src/imgs/Site 10: South of E. Valley Blvd between S. Collwood Ave
+      and N. Orange Blossome Ave/Green Alleys-2020-07-17-13-31-53.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-13-31-53
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 13:31:58
+    id: 3
+    image_path: './src/imgs/Site 10: South of E. Valley Blvd between S. Collwood Ave
+      and N. Orange Blossome Ave/Green Alleys-2020-07-17-13-31-58.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-13-31-58
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 13:32:01
+    id: 4
+    image_path: './src/imgs/Site 10: South of E. Valley Blvd between S. Collwood Ave
+      and N. Orange Blossome Ave/Green Alleys-2020-07-17-13-32-02.jpg'
+    include: false
+    relpath: Green Alleys-2020-07-17-13-32-02
+  include: true
+- !!python/object:SiteRecord.SiteRecord
+  alias: 'Site 1: North of W Slauson Ave between S. Mullen Ave and Kenniston Ave'
+  directory: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+    Kenniston Ave/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:53:55
+    id: 1
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-53-56.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-53-56
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:54:01
+    id: 2
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-54-03.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-54-03
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:54:20
+    id: 3
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-54-21.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-54-21
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:56:35
+    id: 4
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-56-36.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-56-36
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:56:45
+    id: 5
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-56-46.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-56-46
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:56:57
+    id: 6
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-56-58.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-56-58
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:57:01
+    id: 7
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-57-02.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-57-02
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:57:50
+    id: 8
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-57-51.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-57-51
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:57:59
+    id: 9
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-58-00.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-58-00
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:58:59
+    id: 10
+    image_path: './src/imgs/Site 1: North of W Slauson Ave between S. Mullen Ave and
+      Kenniston Ave/Green Alleys-2020-07-17-11-59-00.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-59-00
+  include: false
+- !!python/object:SiteRecord.SiteRecord
+  alias: 'Site 2: W 54th St between Deane Ave and S. Harcourt Ave'
+  directory: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 12:21:04
+    id: 1
+    image_path: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/Green
+      Alleys-2020-07-17-12-21-05.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-12-21-05
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 12:21:17
+    id: 2
+    image_path: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/Green
+      Alleys-2020-07-17-12-21-18.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-12-21-18
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 12:21:29
+    id: 3
+    image_path: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/Green
+      Alleys-2020-07-17-12-21-30.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-12-21-30
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 12:23:03
+    id: 4
+    image_path: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/Green
+      Alleys-2020-07-17-12-23-04.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-12-23-04
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 12:23:12
+    id: 5
+    image_path: './src/imgs/Site 2: W 54th St between Deane Ave and S. Harcourt Ave/Green
+      Alleys-2020-07-17-12-23-13.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-12-23-13
+  include: true
+- !!python/object:SiteRecord.SiteRecord
+  alias: 'Site 3: North of Imperial hwy between S. Hobart Blvd and S. Normandie Ave'
+  directory: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+    S. Normandie Ave/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:20:43
+    id: 1
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-20-44.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-20-44
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:21:04
+    id: 2
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-21-05.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-21-05
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:21:14
+    id: 3
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-21-18.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-21-18
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:21:20
+    id: 4
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-21-21.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-21-21
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:23:42
+    id: 5
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-23-43.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-23-43
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 11:23:48
+    id: 6
+    image_path: './src/imgs/Site 3: North of Imperial hwy between S. Hobart Blvd and
+      S. Normandie Ave/Green Alleys-2020-07-17-11-23-50.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-11-23-50
+  include: true
+- !!python/object:SiteRecord.SiteRecord
+  alias: 'Site 5: Nadeau St between Crockett Blvd and Bell Ave'
+  directory: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:45:57
+    id: 1
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-45-59.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-45-59
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:46:02
+    id: 2
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-46-03.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-46-03
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:46:15
+    id: 3
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-46-16.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-46-16
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:47:46
+    id: 4
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-47-47.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-47-47
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:47:50
+    id: 5
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-47-51.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-47-51
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:48:16
+    id: 6
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-48-17.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-48-17
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:48:26
+    id: 7
+    image_path: './src/imgs/Site 5: Nadeau St between Crockett Blvd and Bell Ave/Green
+      Alleys-2020-07-17-10-48-27.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-48-27
+  include: true
+- !!python/object:SiteRecord.SiteRecord
+  alias: 'Site 7: North of E 90th St'
+  directory: './src/imgs/Site 7: North of E 90th St/'
+  images:
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:28:37
+    id: 1
+    image_path: './src/imgs/Site 7: North of E 90th St/Green Alleys-2020-07-17-10-28-38.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-28-38
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:28:47
+    id: 2
+    image_path: './src/imgs/Site 7: North of E 90th St/Green Alleys-2020-07-17-10-28-49.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-28-49
+  - !!python/object:ImageRecord.ImageRecord
+    caption: 2020:07:17 10:28:52
+    id: 3
+    image_path: './src/imgs/Site 7: North of E 90th St/Green Alleys-2020-07-17-10-28-53.jpg'
+    include: true
+    relpath: Green Alleys-2020-07-17-10-28-53
+  include: true

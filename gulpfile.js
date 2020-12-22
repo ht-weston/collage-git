@@ -15,7 +15,7 @@ gulp.task('clean',() => {
 });
 
 gulp.task('images', function(cb){
-    exec('cd ./src && ./main.py ./imgs/ > ./imgs.tex; cd ../', function(err,stdout,stderr) {
+    exec('cd ./src && python ./main.py ./imgs/ > ./imgs.tex; cd ../', function(err,stdout,stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);

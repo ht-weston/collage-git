@@ -137,3 +137,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 *.zip
+{}
+utest/CheckpointA
+utest/CheckpointB
+utest/CheckpointC

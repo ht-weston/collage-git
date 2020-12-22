@@ -22,5 +22,8 @@
     "gulp-run": "^1.7.1",
     "gulp-zip": "^4.2.0",
     "moment": "^2.24.0"
+  },
+  "dependencies": {
+    "lorem-ipsum": "^2.0.3"
   }
 }
