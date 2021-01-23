@@ -1,6 +1,8 @@
 SRC = $(wildcard src/*.tex)
 OUT = $(wildcard dist/*)
 PYPROG=python3
+pubName=projectName_collage
+
 
 all: images publish
 
@@ -12,7 +14,8 @@ view: all
 	okular ./dist/draft/main.pdf &!
 
 publish:
-	TEXINPUTS=src/: latexmk -outdir=dist/draft -pdf -quiet src/main.tex
+	TEXINPUTS=src/: latexmk -outdir=dist/publish -pdf -quiet src/main.tex
+	mv ./dist/publish/main.pdf ./dist/publish/$(shell date +%Y%m%d)_$(pubName).pdf
 
 clean:
 	rm -rf dist/draft/*
