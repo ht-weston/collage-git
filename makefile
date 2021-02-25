@@ -1,10 +1,9 @@
 SRC = $(wildcard src/*.tex)
 OUT = $(wildcard dist/*)
 PYPROG=python3
-pubName=projectName_collage
+pubName=20-21UCLA-Monitoring_CoGen
 
-
-all: images publish
+all: images draft
 
 watch: all
 	./vimnotify
@@ -16,6 +15,9 @@ view: all
 publish:
 	TEXINPUTS=src/: latexmk -outdir=dist/publish -pdf -quiet src/main.tex
 	mv ./dist/publish/main.pdf ./dist/publish/$(shell date +%Y%m%d)_$(pubName).pdf
+
+draft:
+	TEXINPUTS=src/: latexmk -outdir=dist/draft -pdf -quiet src/main.tex
 
 clean:
 	rm -rf dist/draft/*
