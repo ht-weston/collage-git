@@ -1,7 +1,7 @@
 SRC = $(wildcard src/*.tex)
 OUT = $(wildcard dist/*)
 PYPROG=python3
-pubName=20-21UCLA-Monitoring_CoGen
+pubName=Anthony Inc, IGP Consulting
 
 all: images draft
 

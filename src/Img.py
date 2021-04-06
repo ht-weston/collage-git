@@ -36,7 +36,7 @@ class img:
             self._gpsLong = coord[1]
             self._ctime = labels['DateTime']
             self._caption = self._create_caption()
-            self._desc = labels["UserComment"]
+            # self._desc = labels["UserComment"]
 
         except Exception as e:
             raise e
