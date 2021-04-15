@@ -9,7 +9,7 @@ watch: all
 	./vimnotify
 	make view
 
-view: all
+view:
 	okular ./dist/draft/main.pdf &!
 
 publish:
