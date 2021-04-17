@@ -21,3 +21,9 @@ class ImageRecord:
         return "img\n" + \
                "relpath:" + self.relpath + "\n" + \
                "image_path" + self.image_path + "\n"
+
+    def __lt__(self,other):
+        return self.get_the_image() < other.get_the_image()
+
+    def __eq__(self,other):
+        return self.get_the_image() == other.get_the_image()

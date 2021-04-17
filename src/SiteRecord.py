@@ -51,6 +51,8 @@ class SiteRecord:
                 self.images.append(ImageRecord(count, file))
                 count += 1
 
+        self.images.sort()
+
     def _remove_missing_from_folder(self):
         """
         Remove images from the structure which are no longer found in the directory
