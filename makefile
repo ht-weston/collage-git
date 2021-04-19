@@ -19,6 +19,7 @@ publish:
 
 compress: publish
 	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./dist/publish/$(fname)_compressed.pdf ./dist/publish/$(fname).pdf
+	#gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./dist/publish/$(fname)_compressed.pdf ./dist/publish/$(fname).pdf
 
 draft:
 	TEXINPUTS=src/: latexmk -outdir=dist/draft -pdf -quiet src/main.tex
