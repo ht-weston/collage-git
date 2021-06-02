@@ -9,8 +9,8 @@
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
-\usepackage[page]{totalcount}
-\usepackage{hyperref} % Links
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref} % Links
 \usepackage{verbatim} %koleygr: Remember to remove
 
 % Project details
@@ -24,7 +24,8 @@
 \sitevisitdate}\\Site Investigation}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\rfoot{\noindent\includegraphics[height=0.3in]{./src/branding/weston.png}\\\footnotesize{Page \thepage~of \totalpages}}
+\rfoot{\noindent\includegraphics[height=0.3in]{./src/branding/weston.png}\\\footnotesize{Page
+\thepage~of \pageref{LastPage}}}
 \lfoot{\footnotesize{Created: \today}~HT}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
