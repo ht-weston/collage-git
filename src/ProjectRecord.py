@@ -1,8 +1,9 @@
 from glob import glob
 import os
-from yaml import dump, full_load
+import yaml
 
 import Img
+import shapefile
 from SiteRecord import SiteRecord
 
 
@@ -21,7 +22,7 @@ def load_project_record_from_yaml(input_file):
     :return: the ProjectRecord object parsed from YAML
     """
     f = open(input_file, "r")
-    something = full_load(f)
+    something = yaml.load(f,Loader=yaml.Loader)
     f.close()
 
     return something
@@ -35,11 +36,11 @@ def write_project_record_to_yaml(project_record, output_file):
     :return: nothing
     """
     f = open(output_file, "w")
-    dump(project_record, f)
+    yaml.dump(project_record, f)
     f.close()
 
 
-class ProjectRecord:
+class ProjectRecord(object):
     """
     The ProjectRecord class represents a record of a project. This record contains details relevant to the desired
     production of assets such as the shapefile or the LaTeX document.
@@ -48,8 +49,8 @@ class ProjectRecord:
     containing the relevant images from that site visit.
     """
 
-    def __init__(self, basedir):
-        self.project_name = "default project name"
+    def __init__(self, basedir, name =  "default project name"):
+        self.project_name = name
         self.sites = []
         self.basedir = basedir
 
@@ -106,6 +107,13 @@ class ProjectRecord:
 
         return base
 
+def create_shapefile(output_file):
+    w = shapefile.Writer(output_file)
+    w.field('id','C')
+    w.field('name','C')
+    w.field('path','C')
+    w.field('lat','D')
+    w.field('long','D')
 
 class ProjectPrinter:
     """
@@ -153,8 +161,7 @@ class ShapefileProjectPrinter(ProjectPrinter):
             self.image_num += 1
 
         return the_string
-
-
+        
 class LatexProjectPrinter(ProjectPrinter):
     """
     LatexProjectPrinter--Write a Project's LaTeX image listing
